@@ -1,0 +1,26 @@
+ROUGH DESIGN FOR THE CRYPTO MARKET SIMULATOR APP:
+
+STEP 1: 
+Create a landing page which prompts the user to either login or register an account. For simplicity's sake, I think it should probably be mandatory
+for users to be logged in to use this app, since we need to keep track of what they bought etc etc. Also templating will be easier without having to
+make seperate buttons for users who are logged in/not logged in etc.
+
+STEP 2:
+Create a homepage/dashboard where users can see what their current holdings are.
+
+* First we will need a HTML layout page with navbar etc, for other pages to inherit from
+* Users should be able to see their current assets, along with the amount which each asset has risen/fallen in value since they bought it. (Charts?)
+* Each asset will have its own <div> with the chart and also some info from wikipedia about that cryptocurrency
+* Users should be able to do a "quick buy/sell" of any asset they own from this homepage (JS Fetch/AJAX)
+
+STEP 3:
+Create a "MyAccount" page where users can see statistics about their lifetime earnings/losses
+
+* Users should be able to add money to their account from this page
+* Users should be able to view all their transaction history here with dates, amounts etc
+
+STEP 4:
+Create a "Browse CryptoCurrency" page where users can select from a list of available coins
+
+* When a user selects a coin, they should be taken to a page for that coin with information and the option to purchase (or sell if already owned)
+* This page should also have the ability to get a quick quote for the coin (JS Fetch/Ajax)
