@@ -7,7 +7,6 @@ from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse
 
-import simulator
 from .forms import SignUpForm
 
 # Create your views here.
@@ -68,6 +67,9 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("login"))
 
 
-@login_required(login_url= "/login")
+def landing(request):
+    return render(request, "simulator/landing.html")
+
+@login_required(login_url= "/landing")
 def index(request):
     return render(request, "simulator/index.html")

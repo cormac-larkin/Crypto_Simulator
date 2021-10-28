@@ -1,0 +1,20 @@
+html { 
+    background: url(landing.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+.jumbotron {
+    background: url(landing.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(233, 233, 233);
+    text-align: center;
+    border-radius: 0%;  
+}
+

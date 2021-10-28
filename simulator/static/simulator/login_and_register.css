@@ -1,0 +1,41 @@
+html {
+    background-color: rgb(23, 25, 27);
+}
+
+.jumbotron {
+    background-color: rgb(23, 25, 27);
+    color: rgb(233, 233, 233);
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 0%;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+input {
+    align-self: center;
+    width: 18%;
+    border-radius: 10px;
+}
+
+#login {
+    width: 5%;
+    border-radius: 10px;
+}
+
+#register {
+    width: 10%;
+    border-radius: 10px;
+}

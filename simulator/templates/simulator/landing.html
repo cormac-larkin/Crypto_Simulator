@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{% static 'simulator/landing.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="static/simulator/favicon.ico"/>
+    <title>Crypto-Sim</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1><u>Learn about Crypto investing the <i>smart</i> way</u></h1>
+        <hr>
+        <h3>What is Crypto-Sim?</h3>
+        <br>
+        <p> 
+            Crypto-Sim is a <u>free</u> online platform where you can learn the basics of Cryptocurrency investment without risking your hard earned cash.
+            You can 'buy' and 'sell' the most popular Cryptocurrencies, test investment strategies, and track the progress of your portfolio over time.
+            Crypto-Sim utilises live price data from CoinGecko API to provide you with the real investment experience!
+        </p>
+        <br>
+        <p><i> 
+            Sign up for a free account today and
+            discover the power of Crypto!
+        </i></p>
+
+        <a class="btn btn-outline-success" href="{% url 'register' %}" role="button">Sign Up</a>
+        <a class="btn btn-outline-success" href="{% url 'login' %}" role="button">Log In</a>
+    </div>  
+    
+</body>
+</html>
