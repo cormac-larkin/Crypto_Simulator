@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="{% static 'simulator/styles.css' %}" rel="stylesheet">
+    {% block stylesheet %}{% endblock %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
@@ -15,23 +15,12 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <ul class="nav">
-        <li class="nav-item">
-            <a class="navbar-brand" href="#"> {{ user.username|capfirst }}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">My Dashboard</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Browse Crypto</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Account Settings</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-        </li>
-    </ul>
+  <ul>
+    <li><a href="{% url 'index' %}" class="active">Home</a></li>
+    <li><a href="{% url 'browse' %}">Browse Crypto</a></li>
+    <li><a href="#">Contact Us</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li> 
+  </ul>
     {% block body %}
     {% endblock %}
 </body>

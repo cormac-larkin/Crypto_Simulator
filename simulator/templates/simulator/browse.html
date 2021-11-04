@@ -1,0 +1,115 @@
+{% extends "simulator/layout.html" %}
+
+{% block stylesheet %} <link href="static/simulator/dashboard.css" rel="stylesheet">  {% endblock %}
+
+{% block title %} Browse {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 id="browse-header">Browse Cryptocurrency Assets</h1>
+    </div>
+
+    <div class="jumbotron" id="BTC">
+        <h3>BitCoin (BTC)</h3>
+        <p> 
+            Launched in 2009, Bitcoin is the world's largest cryptocurrency by market capitalization. Bitcoin follows the ideas 
+            set out in a white paper by the mysterious and pseudonymous Satoshi Nakamoto.
+            The identity of the person or persons who created the technology is still a mystery. Bitcoin continues to lead the way in Cryptocurrency
+            markets, reaching an all-time-high of €55,400 in April 2021.
+        </p>
+        <hr>
+        <a class="btn btn-outline-success" href="/BTC" role="button">Learn More</a>
+    </div>
+
+    <div class="jumbotron" id="ETH">
+        <h3>Ethereum (ETH)</h3>
+        <p> 
+            Ethereum is a blockchain platform with its own cryptocurrency, called Ether (ETH) or Ethereum, 
+            and its own programming language, called Solidity.
+            As a blockchain network, Ethereum is a decentralized public ledger for verifying and recording transactions.
+            The network's users can create, publish, monetize, and use applications on the platform, and use its Ether cryptocurrency as payment.
+            Insiders call the decentralized applications on the network "dApps." ETH is second only to Bitcoin in market value.
+        </p>
+        <hr>
+        <a class="btn btn-outline-success" href="/ETH" role="button">Learn More</a>
+    </div>
+
+    <div class="jumbotron" id="LTC">
+        <h3>LiteCoin (LTC)</h3>
+        <p>
+            Litecoin is a peer-to-peer cryptocurrency that was set up by Charlie Lee (a former Google employee) in 2011. 
+            It shares many similarities with bitcoin and is based on bitcoin's original source code. 
+            Litecoin was designed to be used for cheaper transactions, and to be more efficient for everyday use.
+            Litecoin was an early bitcoin spinoff or 'altcoin'.
+        </p>
+        <hr>
+        <a class="btn btn-outline-success" href="/LTC" role="button">Learn More</a>
+    </div>
+
+    <div class="jumbotron" id="XRP">
+        <h3>Ripple (XRP)</h3>
+        <p>
+            Ripple is a technology that acts as both a cryptocurrency and a digital payment network for financial transactions. 
+            It was first released in 2012; it was co-founded by Chris Larsen and Jed McCaleb. 
+            Ripple's main process is a payment settlement asset exchange and remittance system, similar to the SWIFT system for 
+            international money and security transfers, which is used by banks and financial middlemen dealing across currencies.
+        </p>
+        <hr>
+        <a class="btn btn-outline-success" href="/XRP" role="button">Learn More</a>
+    </div>
+
+    <div class="jumbotron" id="BCH">
+        <h3>Bitcoin Cash (BCH)</h3>
+        <p>
+            Bitcoin cash is a cryptocurrency created in August 2017, from a fork of Bitcoin. Bitcoin Cash increased the size of blocks,
+            allowing more transactions to be processed and improving scalability.
+            The cryptocurrency underwent another fork in November 2018 and split into Bitcoin Cash ABC and Bitcoin Cash SV (Satoshi Vision).
+            Despite their philosophical differences, Bitcoin Cash and Bitcoin share several technical similarities.
+            They use the same consensus mechanism and have capped their supply at 21 million. 
+        </p>
+        <hr>
+        <a class="btn btn-outline-success" href="/BCH" role="button">Learn More</a>
+    </div>
+
+    <div class="jumbotron" id="ADA">
+        <h3>Cardano (ADA)</h3>
+        <p>
+            Cardano is a third-generation, decentralized proof-of-stake (PoS) blockchain platform designed to be a more
+            efficient alternative to proof-of-work (PoW) networks. Scalability, interoperability, and sustainability on PoW networks
+            like Ethereum are limited by the infrastructure burden of growing costs, energy use, and slow transaction times.
+            Charles Hoskinson, the co-founder of the proof-of-work (PoW) blockchain Ethereum, understood the implications of these challenges
+            to blockchain networks, and began developing Cardano and its primary cryptocurrency, ada, in 2015,
+            launching the platform and the ada token in 2017.
+        </p>
+        <hr>
+        <a class="btn btn-outline-success" href="/ADA" role="button">Learn More</a>
+    </div>
+
+    <div class="jumbotron" id="DOGE">
+        <h3>DogeCoin (DOGE)</h3>
+        <p>
+            Dogecoin (DOGE) is a peer-to-peer, open-source cryptocurrency. It is considered an altcoin and an almost sarcastic meme coin.
+            Launched in December 2013, Dogecoin has the image of a Shiba Inu dog as its logo.
+            While it was created seemingly as a joke, Dogecoin's blockchain still has merit. Its underlying technology is derived from Litecoin.
+            Notable features of Dogecoin, which uses a scrypt algorithm, are its low price and unlimited supply.
+            Dogecoin has a loyal community of supporters who trade it and use it as a tipping currency for social media content.
+        </p>
+        <hr>
+        <a class="btn btn-outline-success" href="/DOGE" role="button">Learn More</a>
+    </div>
+
+    <div class="jumbotron" id="XLM">
+        <h3>Stellar (XLM)</h3>
+        <p>
+            Launched in 2014, Stellar is a blockchain-based platform designed for quick currency exchange and money transfer.
+            Originally based on Ripple Labs’ protocol, Stellar later forked and eventually rewrote its code entirely. Like XRP by Ripple Labs,
+            Stellar’s XLM currency serves as a bridging currency for conducting various transactions on the Stellar platform. 
+            This is the reason each XLM token has a very low value when compared to most other top 10 cryptos.
+            A unique aspect of Stellar is the fact that it is a nonprofit organization. Founded by two well-known figures
+            in the tech world, eDonkey creator, Jed McCaleb and veteran investor, Kim Joyce, Stellar aims
+            to utilize the power of blockchain technology to help the poor, among others.
+        </p>
+        <hr>
+        <a class="btn btn-outline-success" href="/XLM" role="button">Learn More</a>
+    </div>
+{% endblock %}

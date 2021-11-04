@@ -1,0 +1,87 @@
+{% extends "simulator/layout.html" %}
+
+{% load humanize %}
+
+{% block stylesheet %} <link href="static/simulator/dashboard.css" rel="stylesheet">  {% endblock %}
+
+{% block title %} {{ coin_full_name }} ({{ coin_id }}) {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h1>{{ coin_full_name }}</h1>
+
+        <p>The current price of {{ coin_full_name }} ({{ coin_id }}) is {{ coin_info.latestPrice|floatformat:"2"|intcomma }} EUR</p>
+
+        {% if coin_info.change > 0.00000 %}
+
+        <p>24 hour price change: <b style="color: green;"> +{{ coin_info.change|floatformat:"2"|intcomma }}</b> EUR</p>
+
+        {% else %}
+
+        <p>24 hour price change: <b style="color: red;">{{ coin_info.change|floatformat:"2"|intcomma }}</b> EUR </p>
+
+        {% endif %}
+    </div>
+
+    <!--
+    <div class="jumbotron">
+        <iframe src="https://en.wikipedia.org/wiki/{{ coin_full_name }}" title="Wikipedia Article" width="60%" height="500">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+    --->
+
+<!--Chart.js script - Kept it as inline script because I need to pass values from the view function to JS in order to render the charts -->
+    <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <canvas id="myChart" width="100px" height="100px"></canvas>
+    <script>
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+
+            data: {
+                labels: {{ historic_price_timestamps|safe }},
+                datasets: [{
+                    label: '{{ coin_full_name }} Price',
+                    data: {{ historic_price_data }},
+                    backgroundColor: 'rgba(150, 250, 132, 0.9)',
+                    borderColor: 'rgba(150, 100, 132, 0.9)',
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                elements: {
+                    point:{
+                        radius: 1
+                    }
+                },
+                tooltips: {
+                    enabled: true,
+                },
+                legend: {
+                    display: true
+                },            
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        display: true,
+                    }],
+                    yAxes: [{
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value.toLocaleString("en-US",{style:"currency", currency:"EUR"});
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+
+{% endblock %}

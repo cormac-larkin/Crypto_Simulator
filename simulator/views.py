@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .forms import SignUpForm
+from .utils import get_coin_info, sparkline_price_info
 
 # Create your views here.
 
@@ -70,6 +71,47 @@ def logout_view(request):
 def landing(request):
     return render(request, "simulator/landing.html")
 
+
 @login_required(login_url= "/landing")
 def index(request):
     return render(request, "simulator/index.html")
+
+
+@login_required(login_url= "/landing")
+def browse(request):
+
+    if request.method == "GET":
+        return render(request, "simulator/browse.html")
+
+
+@login_required(login_url= "/landing")
+def coin_info(request, coin_id):
+    """This view takes a coin_id from the URL and passes it to the 'get_coin_info' function which gets a JSON response from the IEX API.
+        The JSON information is passed to the template where specific values such as the current price can be accessed."""
+
+    if request.method == "GET":
+
+        # Getting live price data from IEX API for the selected currency
+        coin_info = get_coin_info(coin_id)
+
+        # Getting historic price data from Nomics API (used for rendering charts with chart.js)
+        historic_price_data = sparkline_price_info(coin_id)
+
+        # The API doesn't provide the full coin name in its response, so I created a dictionary where the full names can be accessed and passed to template.
+        coin_name_dict = {
+            "BTC": "Bitcoin", "ETH": "Ethereum", "XRP": "Ripple", "ADA": "Cardano", 
+            "LTC": "Litecoin", "BCH": "Bitcoin Cash", "DOGE": "Dogecoin", "XLM": "Stellar"
+            }
+        
+        # If the coin name is not in the dictionary, use placeholder string instead, to avoid KeyError
+        try:
+            coin_full_name = coin_name_dict[coin_id.upper()]
+        except KeyError:
+            coin_full_name = "the selected cryptocurrency"
+
+            
+
+        return render(request, "simulator/coin_info.html", {
+            "coin_id": coin_id.upper(), "coin_info": coin_info, "coin_full_name": coin_full_name,
+            "historic_price_data": historic_price_data[0], "historic_price_timestamps": historic_price_data[1]
+        })

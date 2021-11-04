@@ -24,3 +24,15 @@ Create a "Browse CryptoCurrency" page where users can select from a list of avai
 
 * When a user selects a coin, they should be taken to a page for that coin with information and the option to purchase (or sell if already owned)
 * This page should also have the ability to get a quick quote for the coin (JS Fetch/Ajax)
+
+
+LIST OF CRYPTO AVAILABLE (for a start, can add more later):
+    Bitcoin (BTC)
+    Ethereum (ETH)
+    LiteCoin (LTC)
+    Bitcoin Cash (BCH)
+    Ripple (XRP)
+    Cardano (ADA)
+    DogeCoin (DOGE)
+    Stellar (XLM)
+    
