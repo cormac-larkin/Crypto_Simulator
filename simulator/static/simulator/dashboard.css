@@ -1,13 +1,13 @@
 * {
     font-family: 'Roboto', sans-serif;
-    color: rgb(233, 233, 233);
+    color: rgb(228, 225, 225);
 }
 
 
 
 a, a:hover, a:focus, a:active {
     text-decoration: none;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 ul {
@@ -24,7 +24,7 @@ li {
   
 li a {
     display: inline-block;
-    color: white;
+    color: rgb(228, 225, 225);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -36,7 +36,7 @@ li:last-child {
 }
   
 li a:hover {
-    background-color: rgb(31, 194, 66);
+    background-color: rgb(34, 146, 58);
 }
 
 .jumbotron {
@@ -49,5 +49,115 @@ li a:hover {
 }
 
 body {
-    background-color: rgb(65, 66, 68)
+    background-color: rgb(65, 66, 68);
 }
+
+/* The following selectors are for use on the 'coin-info' page */
+
+#logo-img {
+    padding-top: 5px;
+}
+
+#info-header {
+    text-align: center;
+}
+
+#banner-container {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#live-price-banner {
+    animation: pulse 3s infinite;
+    border-radius: 15px;
+    margin-left: 120px;
+    margin-right: 120px;
+}
+
+@keyframes pulse {
+    0% {
+      background-color: rgb(255, 217, 0);
+      color: black;
+    }
+    50% {
+      background-color: #FF4136;
+      color: black;
+    }
+    100% {
+      background-color: rgb(255, 217, 0);
+      color: black;
+    }
+}
+
+#chart-container {
+    height: 500px;
+    width: 100%;
+}
+
+#info-tab {
+    float: left;
+    width: 55%;
+}
+
+#info-tab-title {
+    text-align: center;
+}
+
+.stat-container {
+    background-color: rgb(41, 39, 39);
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.stat {
+    text-align: left;
+    background-color: rgb(41, 39, 39);
+}
+
+.stat-info {
+    background-color: rgb(41, 39, 39);
+    float: right;
+}
+
+.stat-container:hover {
+    background-color: rgb(34, 146, 58);
+}
+
+.stat-container:hover > .stat {
+    background-color: rgb(34, 146, 58);
+}
+
+.stat-container:hover > .stat-info {
+    background-color: rgb(34, 146, 58);
+}
+
+#trade-form-tab {
+    float: right;
+    width: 43%;
+}
+
+#trade-form {
+    text-align: center;
+}
+
+#trade-form-title {
+    text-align: center;
+}
+
+#trade-type-selector, .options, #trade-value-field {
+    background-color: rgb(41, 39, 39);
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#trade-submit-btn {
+    border-radius: 10px;
+}
+
+
+
+

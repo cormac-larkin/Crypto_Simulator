@@ -35,4 +35,43 @@ LIST OF CRYPTO AVAILABLE (for a start, can add more later):
     Cardano (ADA)
     DogeCoin (DOGE)
     Stellar (XLM)
+
+LIST OF SYMBOLS THAT SUPPORT CONVERSION TO EURO (from IEX):
+    BTC to EUR-----
+    ETH to EUR-----
+    BNB to EUR----
+    XRP to EUR----
+    SXP to EUR----
+    LINK to EUR---
+    DOT to EUR---
+    LTC to EUR---
+    ADA to EUR----
+    BCH to EUR---
+    YFI to EUR---
+    XLM to EUR----
+    GRT to EUR----
+    EOS to EUR----
+    DOGE to EUR----
+    EGLD to EUR---
+    AVAX to EUR----
+    UNI to EUR----
+    CHZ to EUR---
+    ENJ to EUR----
+    MATIC to EUR----
+    LUNA to EUR----
+    THETA to EUR----
+    BTT to EUR---
+    
+    HOT to EUR????????????
+
+    WIN to EUR----
+    VET to EUR---
+    WRX to EUR---
+    TRX to EUR----
+    SHIB to EUR---
+    ETC to EUR---
+    SOL to EUR----
+    ICP to EUR---
+    RUNE to EUR---
+    LAZIO to EUR---
     

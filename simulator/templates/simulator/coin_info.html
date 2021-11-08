@@ -8,80 +8,184 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-        <h1>{{ coin_full_name }}</h1>
+    <div class="container-fluid" id="info-header"> 
+        
+        <img src="static/simulator/logos/{{ coin_id|lower }}-logo.png" id="logo-img" alt="" height="100px" width="100px">
 
-        <p>The current price of {{ coin_full_name }} ({{ coin_id }}) is {{ coin_info.latestPrice|floatformat:"2"|intcomma }} EUR</p>
+        <h1><u>{{ coin_full_name }} ({{ coin_id }})</u></h1>
+
+        <div id="banner-container">
+            <h3 style="color: rgb(255, 217, 0);" id="live-price-banner">LIVE PRICE: €{{ coin_info.latestPrice|floatformat:"3"|intcomma }}</h3>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div id="chart-container">
+        <canvas id="myChart" width="100px" height="100px"></canvas>
+    </div>
+
+    <hr>
+    
+    <div class="jumbotron" id="info-tab">
+
+        <h3 id="info-tab-title"><u>Live Market Data for {{ coin_full_name }} ({{ coin_id }})</u></h3>
+
+        <div class="stat-container" id="current-price-stat-container">
+            <span class="stat">Current Price (as of {% now "SHORT_DATETIME_FORMAT" %}):</span> <span class="stat-info"><u>€{{ coin_info.latestPrice|floatformat:"2"|intcomma }}</u></span>
+        </div>
+
+        <hr>
 
         {% if coin_info.change > 0.00000 %}
 
-        <p>24 hour price change: <b style="color: green;"> +{{ coin_info.change|floatformat:"2"|intcomma }}</b> EUR</p>
+        <div class="stat-container">
+            <span class="stat">24 Hour Price Change:</span> <span class="stat-info"> <b style="color: green;"> +{{ coin_info.change|floatformat:"2"|intcomma }}</b> EUR ({{ coin_info.changePercent|floatformat:"2"|intcomma}}%)</span>
+        </div>
 
         {% else %}
-
-        <p>24 hour price change: <b style="color: red;">{{ coin_info.change|floatformat:"2"|intcomma }}</b> EUR </p>
+        <div class="stat-container">
+            <span class="stat">24 Hour Price Change:</span> <span class="stat-info"> <b style="color: red;">{{ coin_info.change|floatformat:"2"|intcomma }}</b> EUR ({{ coin_info.changePercent|floatformat:"2"|intcomma}}%)</span>
+        </div>
 
         {% endif %}
+        
+        <div class="stat-container">
+            <span class="stat">24 Hour High:</span> <span class="stat-info"> €{{ coin_info.high|floatformat:"2"|intcomma }}</span>
+        </div>
+
+        <div class="stat-container">
+            <span class="stat">24 Hour Low:</span> <span class="stat-info"> €{{ coin_info.low|floatformat:"2"|intcomma }}</span>
+        </div>
+
+        <div class="stat-container">
+            <span class="stat">24 Hour Trading Volume:</span> <span class="stat-info"> {{ coin_info.latestVolume|floatformat:"2"|intcomma }} Units</span>
+        </div>
+
+        <hr>
+
+        <div class="stat-container">
+            <span class="stat">Bid Price:</span> <span class="stat-info"> €{{ coin_info.bidPrice|floatformat:"2"|intcomma }}</span>
+        </div>
+
+        <div class="stat-container">
+            <span class="stat">Bid Size:</span> <span class="stat-info">{{ coin_info.bidSize|floatformat:"2"|intcomma }}</span>
+        </div>
+
+        <div class="stat-container">
+            <span class="stat">Ask Price:</span> <span class="stat-info">€{{ coin_info.askPrice|floatformat:"2"|intcomma }}</span>
+        </div>
+
+        <div class="stat-container">
+            <span class="stat">Ask Size:</span> <span class="stat-info">{{ coin_info.askSize|floatformat:"2"|intcomma }}</span>
+        </div>
+
     </div>
 
-    <!--
-    <div class="jumbotron">
-        <iframe src="https://en.wikipedia.org/wiki/{{ coin_full_name }}" title="Wikipedia Article" width="60%" height="500">
-            <p>Your browser does not support iframes.</p>
-        </iframe>
+    <div class="jumbotron" id="trade-form-tab">
+        <h3 id="trade-form-title"><u>Trade {{ coin_id }}</u></h3>
+
+        <form action="/{{ coin_id }}" method="POST" id="trade-form">
+
+            {% csrf_token %}
+            <input type="hidden" name="currency-id" value="{{ coin_id }}">
+
+            <label for="trade-type-selector">Do you want to Buy or Sell {{ coin_id }}?</label>
+            <br>
+            <select name="trade-type" id="trade-type-selector">
+                <option style="color:gray" value="null">Select Trade Type</option>
+                <option value="BUY" class="options">Buy</option>
+                <option value="SELL" class="options">Sell</option>
+            </select>
+            <br>
+            <br>
+
+            <label for="trade-value-field">Enter the value of your desired trade:</label>
+            <br> €            
+            <input type="number" name="trade-value" id="trade-value-field" min="1">
+            <br>
+            <br>
+            <p>Available Funds: €{{data.extenduser.cash|intcomma}}</p>
+            <hr>
+            <input type="submit" class="btn btn-success" id="trade-submit-btn" value="Confirm Trade">
+
+        </form>
+
+        
+
     </div>
-    --->
+
+
+
+
+
+
+
 
 <!--Chart.js script - Kept it as inline script because I need to pass values from the view function to JS in order to render the charts -->
-    <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <canvas id="myChart" width="100px" height="100px"></canvas>
-    <script>
+<script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'line',
+<script>
 
-            data: {
-                labels: {{ historic_price_timestamps|safe }},
-                datasets: [{
-                    label: '{{ coin_full_name }} Price',
-                    data: {{ historic_price_data }},
-                    backgroundColor: 'rgba(150, 250, 132, 0.9)',
-                    borderColor: 'rgba(150, 100, 132, 0.9)',
-                    borderWidth: 1
-                }]
-            },
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
 
-            options: {
-                elements: {
-                    point:{
-                        radius: 1
-                    }
-                },
-                tooltips: {
-                    enabled: true,
-                },
-                legend: {
-                    display: true
-                },            
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        display: true,
-                    }],
-                    yAxes: [{
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value, index, values) {
-                                return value.toLocaleString("en-US",{style:"currency", currency:"EUR"});
-                            }
-                        }
-                    }]
+        data: {
+            labels: {{ historic_price_timestamps|safe }},
+            datasets: [{
+                label: '{{ coin_full_name }} Weekly Price Trends',
+                data: {{ historic_price_data }},
+                backgroundColor: 'rgba(150, 250, 132, 0.9)',
+                borderColor: 'rgba(150, 78, 40, 0.9)',
+                borderWidth: 1
+            }]
+        },
+
+        options: {
+            elements: {
+                point:{
+                    radius: 1
                 }
+            },
+            tooltips: {
+                enabled: true,
+                callbacks: {
+                    label: function(tooltipItems, data) { 
+                        return '{{ coin_full_name }} Price: €' + tooltipItems.yLabel;
+                    }
+                }
+            },
+            legend: {
+                labels: {
+                    fontColor: 'rgb(228, 225, 225)'
+                }
+            },            
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    display: true,
+                    categoryPercentage: 1.0,
+                    barPercentage: 1.0,
+                    ticks: {
+                        fontColor: 'white'
+                    }
+                }],
+                yAxes: [{
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return value.toLocaleString("en-US",{style:"currency", currency:"EUR"});
+                        },
+                        fontColor: 'white'
+                    }
+                }]
             }
-        });
-    </script>
-
+        }
+    });
+</script>
 
 {% endblock %}
