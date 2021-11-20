@@ -14,8 +14,8 @@
 
         <h1><u>{{ coin_full_name }} ({{ coin_id }})</u></h1>
 
-        <div id="banner-container">
-            <h3 style="color: rgb(255, 217, 0);" id="live-price-banner">LIVE PRICE: €{{ coin_info.latestPrice|floatformat:"3"|intcomma }}</h3>
+        <div class="banner-container">
+            <h3 style="color: rgb(255, 217, 0);" class="live-price-banner">LIVE PRICE: €{{ coin_info.latestPrice|floatformat:"3"|intcomma }}</h3>
         </div>
 
     </div>
@@ -41,12 +41,12 @@
         {% if coin_info.change > 0.00000 %}
 
         <div class="stat-container">
-            <span class="stat">24 Hour Price Change:</span> <span class="stat-info"> <b style="color: green;"> +{{ coin_info.change|floatformat:"2"|intcomma }}</b> EUR ({{ coin_info.changePercent|floatformat:"2"|intcomma}}%)</span>
+            <span class="stat">24 Hour Price Change:</span> <span class="stat-info"> <b style="color: green;"> +{{ coin_info.change|floatformat:"4"|intcomma }}</b> EUR ({{ coin_info.changePercent|floatformat:"2"}}%)</span>
         </div>
 
         {% else %}
         <div class="stat-container">
-            <span class="stat">24 Hour Price Change:</span> <span class="stat-info"> <b style="color: red;">{{ coin_info.change|floatformat:"2"|intcomma }}</b> EUR ({{ coin_info.changePercent|floatformat:"2"|intcomma}}%)</span>
+            <span class="stat">24 Hour Price Change:</span> <span class="stat-info"> <b style="color: red;">{{ coin_info.change|floatformat:"4"|intcomma }}</b> EUR ({{ coin_info.changePercent|floatformat:"2"}}%)</span>
         </div>
 
         {% endif %}
@@ -106,7 +106,7 @@
             <input type="number" name="trade-value" id="trade-value-field" min="1">
             <br>
             <br>
-            <p>Available Funds: €{{data.extenduser.cash|intcomma}}</p>
+            <p>{{data.username|capfirst}}'s available Funds: €{{data.extenduser.cash|intcomma}}</p>
             <hr>
             <input type="submit" class="btn btn-success" id="trade-submit-btn" value="Confirm Trade">
 
@@ -136,7 +136,7 @@
         data: {
             labels: {{ historic_price_timestamps|safe }},
             datasets: [{
-                label: '{{ coin_full_name }} Weekly Price Trends',
+                label: '{{ coin_full_name }} Historic Price Trends',
                 data: {{ historic_price_data }},
                 backgroundColor: 'rgba(150, 250, 132, 0.9)',
                 borderColor: 'rgba(150, 78, 40, 0.9)',

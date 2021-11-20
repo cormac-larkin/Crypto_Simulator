@@ -11,28 +11,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Stalinist+One&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="static/simulator/favicon.ico"/>
     <title>Crypto-Sim</title>
 </head>
 <body>
-    <div class="jumbotron">
-        <h1><u>Learn about Crypto investing the <i>smart</i> way</u></h1>
-        <hr>
-        <h3>What is Crypto-Sim?</h3>
-        <br>
-        <p> 
-            Crypto-Sim is a <u>free</u> online platform where you can learn the basics of Cryptocurrency investment without risking your hard earned cash.
-            You can 'buy' and 'sell' the most popular Cryptocurrencies, test investment strategies, and track the progress of your portfolio over time.
-            Crypto-Sim utilises live data from IEX Cloud API to provide you with the real investment experience!
-        </p>
-        <br>
-        <p><i> 
-            Sign up for a free account today and
-            discover the power of Crypto!
-        </i></p>
+        <div id="transparent-box">
+            <h1 id="crypto-sim-logo">CRYPTO_SIM</h1>
+            <br><br><br>
+            <h3><u><i>Invest the Smart Way</i></u></h3>
+            <br><br>
+            <div id="bullet-points">
+                <ul>
+                    <li><p>Crypto-Sim is a <u>free</u> platform where you can experiment with Cryptocurrency investment.</p></li>
+                    <li><p>Simulate trading with the most popular Cryptocurrencies, and track the progress of your portfolio over time.</p></li>
+                    <li><p>Stay up to date with the latest Crypto & BlockChain news</p></li>
+                    <li><p>Crypto-Sim utilises live market data from IEX Cloud and Nomics API to provide you with the real investment experience</p></li>
+                </ul>
+            </div>
+            <br><br><br>
+            <p> 
+                Sign up for a free account now!
+            </p>
 
-        <a class="btn btn-success" href="{% url 'register' %}" role="button">Sign Up</a>
-        <a class="btn btn-success" href="{% url 'login' %}" role="button">Log In</a>
+            <a class="btn btn-success" href="{% url 'register' %}" role="button">Sign Up</a>
+            <a class="btn btn-success" href="{% url 'login' %}" role="button">Log In</a>
     </div>  
     
 </body>

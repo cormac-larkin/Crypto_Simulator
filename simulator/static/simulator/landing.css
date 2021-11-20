@@ -1,20 +1,52 @@
-html { 
+body {
     background: url(landing.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    animation: fadeInAnimation ease 5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
   }
 
-.jumbotron {
-    background: url(landing.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  @keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+#crypto-sim-logo {
+  font-family: 'Stalinist One';
+  float: right;
+  text-shadow:
+  0 0 7px rgb(187, 187, 187),
+  0 0 10px rgb(199, 198, 198),
+  0 0 21px rgb(189, 189, 189),
+  0 0 42px rgb(0, 255, 106),
+  0 0 82px rgb(0, 255, 55),
+  0 0 92px rgb(0, 255, 85),
+  0 0 102px rgb(65, 126, 65),
+  0 0 151px rgb(0, 255, 106);
+}
+
+#transparent-box {
+    top: 50%;
+    left: 3%;
+    position: absolute;
+    width: 30%;
+    transform: translateY(-50%);
+    background-color: rgba(33, 42, 51, 0);
     font-family: 'Roboto', sans-serif;
-    color: rgb(233, 233, 233);
+    color: rgb(212, 212, 212);
     text-align: center;
-    border-radius: 0%;  
+    border-radius: 15px;
+    padding-bottom: 10px;  
+}
+
+#bullet-points {
+  text-align: left;
 }
 

@@ -1,14 +1,51 @@
 {% extends "simulator/layout.html" %}
 
+{% load humanize %}
+
 {% block stylesheet %} <link href="static/simulator/dashboard.css" rel="stylesheet">  {% endblock %}
 
 {% block title %} Browse {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <h1 id="browse-header">Browse Cryptocurrency Assets</h1>
+    <div class="container-fluid" id="browse-header">
+        <h1><u>Browse Markets</u></h1>
+        <hr>
+        <h6>Select a Cryptocurrency below to view trade options and historic price charts</h6>
     </div>
 
+    <div class="jumbotron" id="legend-bar">
+        <table class="legend-headers">
+            <tr>
+                <th><u>Name</u></th>
+                <th class="price-header"><u>Live Price</u></th>
+                <th><u>24h Price Change</u></th>
+                <th><u>24h Volume</u></th>
+                <th><u>Market Cap</u></th>
+            </tr>
+        </table>
+    </div>
+
+    {% for currency in full_coin_info_list %}
+        <div class="jumbotron">
+            <a href="/{{ currency.id }}"><img src="static/simulator/logos/{{ currency.id|lower }}-logo.png" id="browse-logo" height="50" width="50"></a>
+            <table class="browse-stat-list">
+                <tr>
+                    <td><h5><u><a href="/{{ currency.id }}">{{ currency.name }} ({{ currency.id }})</a></u></h5></td>
+                    <td><h5 class="price">€{{ currency.price|floatformat:"5"|intcomma }}<h5></td>
+                    {% if "-" in currency.1d.price_change_pct  %}
+                    <td class="price-change" style="color: rgb(255, 60, 0);">{{ currency.1d.price_change_pct }}%</td>
+                    {% else %}
+                    <td class="price-change" style="color: rgb(0, 218, 0);">{{ currency.1d.price_change_pct }}%</td>
+                    {% endif %}
+                    <td>€{{ currency.1d.volume|floatformat:"2"|intcomma }}</td>
+                    <td>€{{ currency.market_cap|floatformat:"2"|intcomma }}</td>
+                </tr>
+            </table>
+
+        </div>
+    {% endfor %}
+    
+<!---
     <div class="jumbotron" id="BTC">
         <h3>BitCoin (BTC)</h3>
         <p> 
@@ -112,4 +149,5 @@
         <hr>
         <a class="btn btn-success" href="/XLM" role="button">Learn More</a>
     </div>
+    -->
 {% endblock %}

@@ -1,9 +1,140 @@
 {% extends "simulator/layout.html" %}
 
+{% load humanize %}
+
 {% block stylesheet %} <link href="static/simulator/dashboard.css" rel="stylesheet"> {% endblock %}
 
 {% block title %} Dashboard {% endblock %}
 
 {% block body %}
-    <h1>This is my Dashboard</h1>
+    
+
+    {% if not portfolio %}
+
+        <div class="container-fluid" id="dashboard-welcome-banner">
+            <h1>Welcome {{ user.username|capfirst}}</h1>
+        </div>
+        <hr>
+
+        <div class="container-fluid" id="no-investments">
+            <h1>We've added <u id="welcome-gift">€10,000</u> to your account as a welcome gift</h1>
+            <br>
+            <h3 id="begin-investing"><a href="/browse"><u>Click here</u></a> to browse the Crypto markets and begin investing</h3>
+        </div>
+
+    {% else %}
+
+        <div class="jumbotron" id="portfolio-overview">
+            <h1>Welcome back, {{ user.username|capfirst}}</h1>
+            <hr>
+            <h3><u>Portfolio Overview</u></h3>
+            <p>You own <u>{{ owned_coins_list|length }}</u> unique Cryptocurrency assets</p>
+            <p>The total value of your portfolio is €<u>{{combined_holdings_value|floatformat:"2"|intcomma}}</u> (as of {% now "SHORT_DATETIME_FORMAT" %})</p>
+            <p>Your total return on investment is: €<u>{{ total_profit_or_loss|floatformat:"2"|intcomma }} ({{ total_profit_or_loss_percentage|floatformat:"2"|intcomma }}%)</u></p>
+
+        </div>
+
+        {% for item in holdings_info_list %}
+            <div class="portfolio-item">
+                <img src="static/simulator/logos/{{ item.0|lower }}-logo.png" class="portfolio-item-logo" alt="" height="100px" width="100px">
+                <h1><a href="/{{ item.0 }}"><u><b>{{ item.0 }}</b></u></a></h1>
+
+                <div class="portfolio-item-price-banner-container">
+                    <h1 class="portfolio-item-price-banner">€{{ item.1|floatformat:"2"|intcomma }}</h1>
+                </div>
+                
+                
+                <div class="portfolio-chart-container">
+                    <canvas id="{{ item.0 }}Chart" width="100px" height="100px"></canvas>
+                </div>
+               
+
+                <hr>
+                <ul>
+                    <li>Total Amount Invested: €{{ item.4|floatformat:"2"|intcomma }}</li>
+                    <li>All-Time Profit/Loss: €{{ item.2|floatformat:"2"|intcomma }} ({{ item.3|floatformat:"2"|intcomma }}%)</li>
+                </ul>
+                
+
+            </div>      
+        {% endfor %}
+    {% endif %}
+
+    <!--Chart.js script - Kept it as inline script because I need to pass values from the view function to JS in order to render the charts -->
+<script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+{% for item in holdings_info_list %}
+    <script>
+
+        const {{ item.0 }}Chart = document.getElementById('{{ item.0 }}Chart').getContext('2d');
+        const chartFor{{ item.0 }} = new Chart({{ item.0 }}Chart, {
+            type: 'line',
+
+            data: {
+                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '100'],
+                datasets: [{
+                    label: '{{ item.0 }} Investment Performance (%)',
+                    data: ['0', '{{ random_number_list|random }}', '{{ random_number_list|random }}',
+                     '{{ random_number_list|random }}', '{{ random_number_list|random }}', 
+                     '{{ random_number_list|random }}', '{{ random_number_list|random }}',
+                     '{{ random_number_list|random }}', '{{ random_number_list|random }}',
+                     '{{ random_number_list|random }}', '{{ random_number_list|random }}',
+                     '{{ random_number_list|random }}', '{{ random_number_list|random }}', '{{ item.3 }}'],
+                    lineTension: 0.3,
+                    backgroundColor: 'rgba(150, 250, 132, 0.9)',
+                    borderColor: 'rgba(150, 78, 40, 0.9)',
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                elements: {
+                    point:{
+                        radius: 1
+                    }
+                },
+                tooltips: {
+                    enabled: true,
+                    callbacks: {
+                        label: function(tooltipItems, data) { 
+                            return '{{ item.0 }} Profit: %' + tooltipItems.yLabel;
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        fontColor: 'rgb(228, 225, 225)'
+                    }
+                },            
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        categoryPercentage: 1.0,
+                        barPercentage: 1.0,
+                        ticks: {
+                            fontColor: 'white'
+                        }
+                    }],
+                    yAxes: [{
+                        beginAtZero: true,
+                        ticks: {
+                            suggestedMax: 100,
+                            fontColor: 'white'
+                        }
+                        //ticks: {
+                            //callback: function(value, index, values) {
+                                //return value.toLocaleString("en-US",{style:"currency", currency:"EUR"});
+                            //},
+                            //fontColor: 'white'
+                        //}
+                    }]
+                }
+            }
+        });
+    </script>
+{% endfor %}
+
 {% endblock %}

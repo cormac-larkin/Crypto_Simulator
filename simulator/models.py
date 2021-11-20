@@ -15,17 +15,31 @@ class ExtendUser(models.Model):
     def __str__(self):
         return self.link.username
 
+
 # Model for storing transaction data
 class Transactions(models.Model):
     cryptocurrency = models.CharField(max_length=5)
     transaction_type = models.CharField(max_length=4)
-    units = models.FloatField()
-    value = models.FloatField()
+    units = models.DecimalField(decimal_places=8, max_digits=100)
+    value = models.DecimalField(decimal_places=8, max_digits=100)
     timestamp = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return(f"{self.user} completed a {self.transaction_type} transaction for {self.units} {self.cryptocurrency}")
+        return(f"{self.user} completed a {self.transaction_type} transaction for {self.units} {self.cryptocurrency} (€{self.value})")
 
     class Meta:
         verbose_name_plural = "Transactions"
+
+
+# Model for tracking User's holdings
+class Holdings(models.Model):
+    cryptocurrency = models.CharField(max_length=5)
+    units = models.DecimalField(decimal_places=8, max_digits=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return(f"{self.user} owns {self.units} units of {self.cryptocurrency}")
+
+    class Meta:
+        verbose_name_plural = "Holdings"
