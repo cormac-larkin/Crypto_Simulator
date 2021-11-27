@@ -95,8 +95,8 @@
             <br>
             <select name="trade-type" id="trade-type-selector">
                 <option style="color:gray" value="null">Select Trade Type</option>
-                <option value="BUY" class="options">Buy</option>
-                <option value="SELL" class="options">Sell</option>
+                <option value="BUY" class="options" id="buy-button">Buy</option>
+                <option value="SELL" class="options" id="sell-button">Sell</option>
             </select>
             <br>
             <br>
@@ -106,9 +106,10 @@
             <input type="number" name="trade-value" id="trade-value-field" min="1">
             <br>
             <br>
-            <p>{{data.username|capfirst}}'s available Funds: €{{data.extenduser.cash|intcomma}}</p>
+            <p>{{data.username|capfirst}}'s available Funds: €<span id="funds">{{data.extenduser.cash}}</span></p>
             <hr>
-            <input type="submit" class="btn btn-success" id="trade-submit-btn" value="Confirm Trade">
+            <input type="submit" class="btn btn-success" id="trade-submit-btn" value="Confirm Trade" disabled>
+            <p id="reminder" style="color: rgb(255, 217, 0);">Please select a trade option from the drop-down menu above</p>
 
         </form>
 
@@ -123,7 +124,7 @@
 
 
 
-<!--Chart.js script - Kept it as inline script because I need to pass values from the view function to JS in order to render the charts -->
+<!--Chart.js script -->
 <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
@@ -189,3 +190,5 @@
 </script>
 
 {% endblock %}
+
+{% block script %} <script src="static/simulator/coin_info.js"></script> {% endblock %}

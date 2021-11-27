@@ -10,7 +10,6 @@
     
 
     {% if not portfolio %}
-
         <div class="container-fluid" id="dashboard-welcome-banner">
             <h1>Welcome {{ user.username|capfirst}}</h1>
         </div>
@@ -23,20 +22,67 @@
         </div>
 
     {% else %}
+    <div class="container-fluid" id="portfolio-header">
+        <h1><u>Investment Portfolio</u></h1>
+        <hr>
+        <h6><i>View and manage your investments here</i></h6>
+    </div>
+
+    <div id="outer-chart-container">
+        <div id="pie-chart-container">
+            <div id="pie-chart-header">
+                <h3>Investments Visualized</h3>
+            </div>
+            <canvas id="pieChart"></canvas>
+        </div>
 
         <div class="jumbotron" id="portfolio-overview">
-            <h1>Welcome back, {{ user.username|capfirst}}</h1>
+            <div id="welcome-back">
+                <h3>Portfolio Overview</h3>
+            </div>
+            <br>            
+            <h5><u>Total Portfolio Value:</u> <span id="portfolio-overview-price">€{{combined_holdings_value|floatformat:"2"|intcomma}}</span></h5>
+            <br>
+            <ul id="portfolio-overview-stats">
+                <li><p>You own <u>{{ owned_coins_list|length }}</u> unique Cryptocurrency assets</p></li>
+                <li><p> Total Amount Invested: <u>€{{ total_amount_invested }}</u></p></li>
+                {% if total_profit_or_loss > 0.0000 %}
+                <li><p>Total Return on Investment: <u style="color: rgb(21, 226, 21);">€{{ total_profit_or_loss|floatformat:"2"|intcomma }} ({{ total_profit_or_loss_percentage|floatformat:"2"|intcomma }}%)</u></p></li>
+                {% else %}
+                <li><p>Total Return on Investment: <u style="color: rgb(255, 72, 0);">€{{ total_profit_or_loss|floatformat:"2"|intcomma }} ({{ total_profit_or_loss_percentage|floatformat:"2"|intcomma }}%)</u></p></li>
+                {% endif %}
+            </ul>
             <hr>
-            <h3><u>Portfolio Overview</u></h3>
-            <p>You own <u>{{ owned_coins_list|length }}</u> unique Cryptocurrency assets</p>
-            <p>The total value of your portfolio is €<u>{{combined_holdings_value|floatformat:"2"|intcomma}}</u> (as of {% now "SHORT_DATETIME_FORMAT" %})</p>
-            <p>Your total return on investment is: €<u>{{ total_profit_or_loss|floatformat:"2"|intcomma }} ({{ total_profit_or_loss_percentage|floatformat:"2"|intcomma }}%)</u></p>
-
+            <p>(Information accurate as of {% now "SHORT_DATETIME_FORMAT" %})</p>
         </div>
+
+        <div class="jumbotron" id="account-balance">
+            <div id="my-funds">
+                <h3>My Funds</h3>
+            </div>
+            <br>
+            <h5>Available: €{{ user.extenduser.cash|intcomma}}</h5>
+            <hr>
+            <button type="button" class="btn btn-warning">Add Funds</button>
+            <br>
+            <br>
+            <button type="button" class="btn btn-danger" id="withdraw-btn">Withdraw</button>
+            <hr>
+        </div>
+
+        <div class="jumbotron" id="toolbar">
+            <button type="button" class="btn btn-success" id="leaderboard-btn">View Leaderboard</button>
+            <button type="button" class="btn btn-success" id="trade-history-btn">Trade History</button>
+            <button type="button" class="btn btn-success" id="account-settings-btn">Account Settings</button>
+            <a href="/logout" class="btn btn-danger" id="toolbar-logout-btn">Logout</a>
+        </div>
+    </div>
+
+        
 
         {% for item in holdings_info_list %}
             <div class="portfolio-item">
-                <img src="static/simulator/logos/{{ item.0|lower }}-logo.png" class="portfolio-item-logo" alt="" height="100px" width="100px">
+                <a href="/{{ item.0 }}"><img src="static/simulator/logos/{{ item.0|lower }}-logo.png" class="portfolio-item-logo" alt="" height="100px" width="100px"></a>
                 <h1><a href="/{{ item.0 }}"><u><b>{{ item.0 }}</b></u></a></h1>
 
                 <div class="portfolio-item-price-banner-container">
@@ -50,20 +96,73 @@
                
 
                 <hr>
-                <ul>
-                    <li>Total Amount Invested: €{{ item.4|floatformat:"2"|intcomma }}</li>
-                    <li>All-Time Profit/Loss: €{{ item.2|floatformat:"2"|intcomma }} ({{ item.3|floatformat:"2"|intcomma }}%)</li>
+                <ul class="portfolio-stats">
+                    <li class="total-invested"><span class="left">Total Amount Invested:</span> <span class="right" style="color: gold;">€{{ item.4|floatformat:"2"|intcomma }}</span></li>
+                    {% if item.2 < 0.000000 %}
+                    <li class="all-time-profit"><span class="left">All-Time Profit/Loss:</span> <span class="right" style="color: red;">€{{ item.2|floatformat:"2"|intcomma }} ({{ item.3|floatformat:"2"|intcomma }}%)</span></li>
+                    {% else %}
+                    <li class="all-time-profit"><span class="left">All-Time Profit/Loss:</span> <span class="right" style="color: green;">€{{ item.2|floatformat:"2"|intcomma }} ({{ item.3|floatformat:"2"|intcomma }}%)</span></li>
+                    {% endif %}
                 </ul>
-                
 
+                <button type="button" class="btn btn-danger" href="#" role="button">Sell</a>
+                <button type="button" class="btn btn-success" href="#" role="button">Buy More</a>
+    
             </div>      
         {% endfor %}
     {% endif %}
 
-    <!--Chart.js script - Kept it as inline script because I need to pass values from the view function to JS in order to render the charts -->
+    <!--Chart.js scripts -->
 <script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
+<!--Chart.js Pie Chart Script (for portfolio overview) -->
+<script>
+    const ctx = document.getElementById('pieChart').getContext('2d');
+    const pieChart = new Chart(ctx, {
+        type: 'doughnut',
+
+        data: {
+            labels: {{ owned_coins_list|safe }},
+            datasets: [{
+                label: 'Portfolio Breakdown',
+                data: {{ pie_chart_values_list|safe }},
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(255, 145, 220)',
+                'rgb(100, 214, 86)',
+                'rgb(135, 205, 206)',
+                'rgb(99, 97, 198)',
+                'rgb(255, 205, 86)',
+                'rgb(211, 105, 186)',
+                'rgb(165, 15, 206)'
+                ],
+                color: 'white',
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: 'white'
+                }
+            },
+            title: {
+                display: false,
+                text: 'Portfolio Breakdown',
+                fontColor: 'white'
+            },
+            fontColor: 'white'
+            
+        }
+    })
+</script>
+
+
+<!--Chart.js Line Chart scripts (for each item in portfolio) -->
 {% for item in holdings_info_list %}
     <script>
 
@@ -72,7 +171,7 @@
             type: 'line',
 
             data: {
-                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '100'],
+                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '100'],
                 datasets: [{
                     label: '{{ item.0 }} Investment Performance (%)',
                     data: ['0', '{{ random_number_list|random }}', '{{ random_number_list|random }}',
@@ -80,7 +179,9 @@
                      '{{ random_number_list|random }}', '{{ random_number_list|random }}',
                      '{{ random_number_list|random }}', '{{ random_number_list|random }}',
                      '{{ random_number_list|random }}', '{{ random_number_list|random }}',
-                     '{{ random_number_list|random }}', '{{ random_number_list|random }}', '{{ item.3 }}'],
+                     '{{ random_number_list|random }}', '{{ random_number_list|random }}',
+                     '{{ random_number_list|random }}', '{{ random_number_list|random }}', 
+                     '{{ random_number_list|random }}', '{{ item.3 }}'],
                     lineTension: 0.3,
                     backgroundColor: 'rgba(150, 250, 132, 0.9)',
                     borderColor: 'rgba(150, 78, 40, 0.9)',

@@ -164,24 +164,34 @@ def index(request):
         elif not portfolio:
             holdings_info_list = ""
             owned_coins_list = ""
+            holding_values_list =""
             combined_holdings_value = ""
             total_profit_or_loss_percentage = ""
             total_profit_or_loss = ""
+            total_spent = ""
 
+        # Generate random number to populate our portfolio graphs (until better solution found)
         random_number_list = []
         for i in range(100):
             n = random.randint(1,99)
             random_number_list.append(n)
 
+        label_list = []
+        for i in range(50):
+            label_list.append(i)
+
     return render(request, "simulator/index.html", {
         "user": user,
         "portfolio": portfolio,
         "owned_coins_list": owned_coins_list,
+        "pie_chart_values_list": [int(value) for value in holding_values_list],
         "combined_holdings_value": combined_holdings_value,
         "holdings_info_list": holdings_info_list,
         "total_profit_or_loss": total_profit_or_loss,
         "total_profit_or_loss_percentage": total_profit_or_loss_percentage,
-        "random_number_list": random_number_list
+        "total_amount_invested": total_spent,
+        "random_number_list": random_number_list,
+        "label_list": label_list
     })
 
 
@@ -211,7 +221,7 @@ def coin_info(request, coin_id):
         # Retrieving historic price data from Nomics API (used for rendering charts with chart.js)
         historic_price_data = price_chart_data(coin_id)
         
-        # If the coin name is not in the dictionary, use placeholder string instead, to avoid KeyError
+        # If the coin name is not in the coin name dictionary, use placeholder string instead, to avoid KeyError
         try:
             coin_full_name = coin_name_dict[coin_id.upper()]
         except KeyError:
@@ -328,6 +338,9 @@ def coin_info(request, coin_id):
                     time.sleep(1)
 
                     return HttpResponseRedirect(reverse("index"))
+        
+        else:
+            return HttpResponseForbidden("You did not select a valid trade type ('Buy' or 'Sell')")
                 
 
 

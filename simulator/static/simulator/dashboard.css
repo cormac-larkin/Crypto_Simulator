@@ -25,6 +25,32 @@ body {
     background-color: rgb(65, 66, 68);
 }
 
+footer {
+    background-color: rgb(37, 37, 37);
+    clear: both;
+    border-top-width: 1px;
+    border-top-color: rgb(4, 146, 4);
+    border-top-style: solid;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-bottom: 0px;
+}
+
+#footer-author-info, #footer-github, #footer-attribution {
+    display: inline-block;
+    margin-right: 20px;
+    color: dimgray;
+}
+
+#footer-attribution {
+    padding-left: 21%
+}
+
+#footer-github {
+    float: right;
+}
+
+
 
 /* The following selectors are for the navbar */
 a, a:hover, a:focus, a:active {
@@ -42,7 +68,7 @@ a, a:hover, a:focus, a:active {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: rgb(23, 25, 27);
+    background-color: rgb(37, 37, 37);
 }
   
 .nav-item .nav-link {
@@ -69,7 +95,7 @@ li a:hover {
 
 /* The following selectors are for use on the 'browse' page */
 #browse-header {
-    background: url(landing.jpg) no-repeat center center fixed; 
+    background: url(landing.jpg) center; 
     border-radius: 15px;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -221,10 +247,22 @@ td {
 
 #trade-submit-btn {
     border-radius: 10px;
+    float: none;
 }
 
 
 /* The following selectors are for the dashboard page */
+
+#portfolio-header {
+    background: url(landing.jpg) center; 
+    border-radius: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-width: 2px;
+    border-style: groove;
+    border-color: rgb(192, 173, 173);
+}
+
 #dashboard-welcome-banner {
     text-align: center;
     text-decoration: underline;
@@ -239,17 +277,120 @@ td {
     color: rgb(34, 146, 58);
 }
 
+#welcome-back {
+    text-align: center;
+    background-color: rgb(54, 134, 58);
+    border-radius: 5px;
+    padding-top: 7px;  
+    padding-bottom: 7px;
+}
+
+#outer-chart-container {
+    background-color: rgb(49, 49, 49);
+    height: 450px;
+    margin-left: 1%;
+    margin-right: 1%;
+    border-radius: 15px;
+    margin-bottom: 1%;
+}
+
 #portfolio-overview {
+    background-color: rgb(54, 88, 90);
+    border-radius: 15px;
+    width: 30%;
+    height: 70%;
+    margin-left: 10px;
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-top: 0%;
+    float: left;
     text-align: center;
 }
 
+#portfolio-overview-stats {
+    text-align: left;
+}
+
+#my-funds {
+    background-color: rgb(172, 142, 43);
+    border-radius: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+#account-balance {
+    text-align: center;
+    float: left;
+    margin-left: 30px;
+    width: 15%;
+    height: 70%;
+    background-color: rgb(54, 88, 90);
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-top: 0%;
+}
+
+#withdraw-btn {
+    float: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 20px;
+}
+
+#pie-chart-container {
+    height: 440px;
+    width: 50%;
+    float: right;
+    background-color: rgb(54, 88, 90);
+    border-radius: 15px;
+}
+
+#pie-chart-header {
+    background-color: rgb(189, 61, 45);
+    text-align: center;
+    border-radius: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+#pieChart {
+    border-radius: 25px;
+}
+
+#toolbar {
+    background-color: rgb(54, 88, 90);
+    margin-left: 10px;
+    padding-left: 20px;
+    margin-top: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    float: left;
+}
+
+#toolbar-logout-btn, #leaderboard-btn, #account-settings-btn, #trade-history-btn {
+    float: none;
+}
+
+#toolbar-logout-btn {
+    margin-left: 98px;
+    margin-right: 5px;
+}
+
+#portfolio-overview-price {
+    animation: pulse 5s infinite;
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .portfolio-item {
+    clear: both;
     padding-top: 1%;
-    padding-bottom: 1%;
+    padding-bottom: 3%;
     margin-bottom: 1%;
     margin-left: 1%;
     margin-right: 1%;
-    background-color: rgb(79, 80, 82);
+    background-color: rgb(79, 80, 82, 0.9);
     border-radius: 15px;
 }
 
@@ -275,6 +416,46 @@ td {
     height: 250px;
     width: 90%;
 }
+
+.total-invested, .all-time-profit {
+    background-color: rgb(34, 146, 58);
+    text-align: center;
+    background-color: rgb(41, 39, 39);
+    border-radius: 15px;
+    margin-right: 10px;
+    margin-top: 5px;
+    width: 38%;
+}
+
+.portfolio-stats {
+    width: 60%;
+    float: left;
+}
+
+.left {
+    float: left;
+    padding-left: 5px;
+}
+
+.right {
+    float: right;
+    padding-right: 5px;
+}
+
+.total-invested, .all-time-profit {
+    display: inline-block;
+}
+
+.btn-success, .btn-danger {
+    float: right;
+    margin-right: 10px;
+}
+
+.btn-danger {
+    margin-right: 40px;
+}
+
+
 
 
 

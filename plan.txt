@@ -26,52 +26,9 @@ Create a "Browse CryptoCurrency" page where users can select from a list of avai
 * This page should also have the ability to get a quick quote for the coin (JS Fetch/Ajax)
 
 
-LIST OF CRYPTO AVAILABLE (for a start, can add more later):
-    Bitcoin (BTC)
-    Ethereum (ETH)
-    LiteCoin (LTC)
-    Bitcoin Cash (BCH)
-    Ripple (XRP)
-    Cardano (ADA)
-    DogeCoin (DOGE)
-    Stellar (XLM)
+ISSUES:
 
-LIST OF SYMBOLS THAT SUPPORT CONVERSION TO EURO (from IEX):
-    BTC to EUR-----
-    ETH to EUR-----
-    BNB to EUR----
-    XRP to EUR----
-    SXP to EUR----
-    LINK to EUR---
-    DOT to EUR---
-    LTC to EUR---
-    ADA to EUR----
-    BCH to EUR---
-    YFI to EUR---
-    XLM to EUR----
-    GRT to EUR----
-    EOS to EUR----
-    DOGE to EUR----
-    EGLD to EUR---
-    AVAX to EUR----
-    UNI to EUR----
-    CHZ to EUR---
-    ENJ to EUR----
-    MATIC to EUR----
-    LUNA to EUR----
-    THETA to EUR----
-    BTT to EUR---
+1)  Daily price change percentages from the API's are given as floating point numbers. For example, "0.04" is 4%. Need to fix this in templates somehow
     
-    HOT to EUR????????????
-
-    WIN to EUR----
-    VET to EUR---
-    WRX to EUR---
-    TRX to EUR----
-    SHIB to EUR---
-    ETC to EUR---
-    SOL to EUR----
-    ICP to EUR---
-    RUNE to EUR---
-    LAZIO to EUR---
-    
+2)  Discrepancies between data from nomics and IEX. Possible workaround is to add sleep function between calls so we can use nomics API multiple times
+    on a page and eliminate the need for IEX completely. This would also allow us to get historic price charts on the portfolio page.

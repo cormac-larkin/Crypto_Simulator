@@ -6,7 +6,7 @@ import requests
 coin_name_dict = {
     "BTC": "Bitcoin", "ETH": "Ethereum", "XRP": "Ripple", "ADA": "Cardano", 
     "LTC": "Litecoin", "BCH": "Bitcoin Cash", "DOGE": "Dogecoin", "XLM": "Stellar",
-    "BNB": "Binance Coin", "SXP": "Swipe", "LINK": "Chainlink", "DOT": "Polkadot",
+    "BNB": "Binance Coin", "SXP": "Swipe", "LINK": "ChainLink", "DOT": "Polkadot",
     "YFI": "Yearn.finance", "GRT": "The Graph", "EOS": "Eos", "EGLD": "Elrond",
     "AVAX": "Avalanche", "UNI": "Uniswap", "CHZ": "Chiliz", "ENJ": "Enjin Coin",
     "MATIC": "Polygon", "LUNA": "Terra", "THETA": "Theta", "BTT": "BlockTrade Token",
